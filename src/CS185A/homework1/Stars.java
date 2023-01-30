@@ -52,6 +52,8 @@ public class Stars
 
             for (int i = 0; i < row; i++)
             {
+                if (column == 0) { break; }
+
                 array[i] = br.readLine().toCharArray();
             }
 
