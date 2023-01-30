@@ -48,12 +48,16 @@ public class Stars
             int row = Integer.parseInt(input.split(" ")[0]);
             int column = Integer.parseInt(input.split(" ")[1]);
 
+            if (row <= 0 || column <= 0)
+            {
+                System.out.println("Case 1: 0");
+                return;
+            }
+
             char[][] array = new char[row][column];
 
             for (int i = 0; i < row; i++)
             {
-                if (column == 0) { break; }
-
                 array[i] = br.readLine().toCharArray();
             }
 
