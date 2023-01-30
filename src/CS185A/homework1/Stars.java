@@ -61,7 +61,7 @@ public class Stars
                 array[i] = br.readLine().toCharArray();
             }
 
-            System.out.println("Case " + currentCase + ": " + countStars(array));
+            System.out.print("\nCase " + currentCase + ": " + countStars(array));
             currentCase++;
         }
     }
@@ -111,10 +111,13 @@ public class Stars
             space[rowIndex][columnIndex] = '#';
 
         /*
-         * Check for other star elements down, left, and right of the current star element.
-         * Since the first star element (from countStars()) was found by iterating through the 2D array
-         * left to right, we can ignore going up since it would've been reached earlier.
+         * Check for other star elements up, down, left, and right of the current star element.
+         *
+         * It was my thought that since the first star element (from countStars()) was found by iterating
+         * through the 2D array left to right, we can ignore going up since it would've been reached earlier.
+         * However, according to Kattis (HW software), it's a requirement to have it to search upwards for some reason.
          */
+        recurseConsumeStar(space, rowIndex - 1, columnIndex);
         recurseConsumeStar(space, rowIndex + 1, columnIndex);
         recurseConsumeStar(space, rowIndex, columnIndex - 1);
         recurseConsumeStar(space, rowIndex, columnIndex + 1);
