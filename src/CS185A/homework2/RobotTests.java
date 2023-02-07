@@ -45,4 +45,17 @@ public class RobotTests
 
         assertEquals("THE GAME IS A LIE", outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    void testCase2() throws IOException
+    {
+        String testCase = "1\n" +
+                "#\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+
+        Robots.setEnvironment(is);
+
+        assertEquals("INCONCEIVABLE", outputStreamCaptor.toString().trim());
+    }
 }

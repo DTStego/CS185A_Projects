@@ -42,7 +42,7 @@ public class Robots
         // Will use to create an N x N character array.
         String input = br.readLine();
 
-        if (input.equals(""))
+        if (input.equals("") || input.equals("0"))
             return;
 
         int n = Integer.parseInt(input);
@@ -51,7 +51,6 @@ public class Robots
 
         for (int i = 0; i < n; i++)
         {
-
             array[i] = br.readLine().toCharArray();
 
             if (array[i].length != n)
@@ -76,6 +75,14 @@ public class Robots
         }
 
         int numOfRoutes;
+
+        // Edge case: 1\n#. print INCONCEIVABLE.
+        if (array[0][0] == '#')
+        {
+            System.out.println("INCONCEIVABLE");
+            return;
+        }
+
 
         if ((numOfRoutes = recurseSearch(array, 0, 0)) > 0)
         {
