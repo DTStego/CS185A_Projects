@@ -2,6 +2,7 @@ package CS185A.homework2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,7 +32,12 @@ public class Robots
      */
     public static void main(String[] args) throws IOException
     {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        setEnvironment(System.in);
+    }
+
+    public static void setEnvironment(InputStream inputStream) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
         // Will use to create an N x N character array.
         String input = br.readLine();
@@ -47,6 +53,9 @@ public class Robots
         {
 
             array[i] = br.readLine().toCharArray();
+
+            if (array[i].length != n)
+                throw new IllegalArgumentException("One of your lines is not of 'n' size.");
 
             for (int j = 0; j < array[i].length; j++)
             {
@@ -74,8 +83,6 @@ public class Robots
             return;
         }
 
-        printArray(array);
-
         if (recurseSearchWithGodPowers(array, 0, 0))
         {
             System.out.println("THE GAME IS A LIE");
@@ -102,6 +109,10 @@ public class Robots
 
     public static boolean recurseSearchWithGodPowers(char[][] array, int rowIndex, int columnIndex)
     {
+//        System.out.println();
+//        System.out.println(rowIndex + " " + columnIndex);
+//        printArray(array);
+
         if (array[rowIndex][columnIndex] == '.')
         {
             array[rowIndex][columnIndex] = '#';
