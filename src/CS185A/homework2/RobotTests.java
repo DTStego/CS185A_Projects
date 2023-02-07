@@ -109,4 +109,26 @@ public class RobotTests
 
         assertEquals("6", outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    void testCase6() throws IOException
+    {
+        String testCase = "10\n" +
+                "..########\n" +
+                "#.########\n" +
+                "..########\n" +
+                ".#########\n" +
+                "..........\n" +
+                "#####.####\n" +
+                "#####.####\n" +
+                "#####.####\n" +
+                "#####.####\n" +
+                "#####.####\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+
+        Robots.setEnvironment(is);
+
+        assertEquals("INCONCEIVABLE", outputStreamCaptor.toString().trim());
+    }
 }
