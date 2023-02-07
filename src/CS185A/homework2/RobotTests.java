@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -92,5 +91,22 @@ public class RobotTests
         Robots.setEnvironment(is);
 
         assertEquals("1", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase5() throws IOException
+    {
+        String testCase = "5\n" +
+                ".....\n" +
+                "#..#.\n" +
+                "#..#.\n" +
+                "...#.\n" +
+                ".....\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+
+        Robots.setEnvironment(is);
+
+        assertEquals("6", outputStreamCaptor.toString().trim());
     }
 }
