@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class Robots
@@ -101,6 +100,10 @@ public class Robots
 
     public static int recurseSearch(char[][] array, int rowIndex, int columnIndex)
     {
+//        System.out.println();
+//        System.out.println(rowIndex + 1 + " " + (columnIndex + 1));
+//        printArray(array);
+
         if (rowIndex == array.length - 1 && columnIndex == array[0].length - 1)
             return 1;
 
@@ -117,7 +120,7 @@ public class Robots
     public static boolean recurseSearchWithGodPowers(char[][] array, int rowIndex, int columnIndex)
     {
 //        System.out.println();
-//        System.out.println(rowIndex + " " + columnIndex);
+//        System.out.println(rowIndex + 1 + " " + (columnIndex + 1));
 //        printArray(array);
 
         if (array[rowIndex][columnIndex] == '.')

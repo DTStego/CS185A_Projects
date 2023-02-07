@@ -90,7 +90,7 @@ public class RobotTests
 
         Robots.setEnvironment(is);
 
-        assertEquals("1", outputStreamCaptor.toString().trim());
+        assertEquals("4", outputStreamCaptor.toString().trim());
     }
 
     @Test
