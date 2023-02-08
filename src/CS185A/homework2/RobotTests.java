@@ -296,4 +296,25 @@ public class RobotTests
 
         assertEquals("???", outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    void testCase16() throws IOException
+    {
+        String testCase = "9\n" +
+                "........#\n" +
+                ".#.....#.\n" +
+                "..#...#..\n" +
+                "...#.#...\n" +
+                ".........\n" +
+                "...#.#...\n" +
+                "..#...#..\n" +
+                ".#.....#.\n" +
+                "#........";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("???", outputStreamCaptor.toString().trim());
+    }
 }
