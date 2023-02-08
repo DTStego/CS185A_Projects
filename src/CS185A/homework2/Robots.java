@@ -10,7 +10,7 @@ import java.util.HashSet;
 public class Robots
 {
     // Store blocked locations for a grid in a "row_column" format for lookup.
-    static HashSet<String> blockedLocations = new HashSet<>();
+    static HashSet<String> blockedLocations;
 
     /**
      *  Given a grid (char array) of size n x n with some obstacles marked on it where the robot cannot walk,
@@ -36,6 +36,8 @@ public class Robots
 
     public static void setEnvironment(InputStream inputStream) throws IOException
     {
+        blockedLocations = new HashSet<>();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
         // Will use to create an N x N character array.
@@ -73,7 +75,7 @@ public class Robots
             blockedLocations.add(i + "_" + n);
         }
 
-        int numOfRoutes;
+        long numOfRoutes;
 
         // Edge case: 1\n#. print INCONCEIVABLE.
         if (array[0][0] == '#')
@@ -82,10 +84,13 @@ public class Robots
             return;
         }
 
+        // Memoization technique
+        long[][] memoryArray = new long[n][n];
+        memoryArray[0][0] = 1;
 
-        if ((numOfRoutes = recurseSearch(array, 0, 0)) > 0)
+        if ((numOfRoutes = recurseSearch(array, 0, 0, memoryArray)) > 0)
         {
-            System.out.println((int) (numOfRoutes % (Math.pow(2, 31) - 1)));
+            System.out.println(numOfRoutes);
             return;
         }
 
@@ -98,23 +103,52 @@ public class Robots
         System.out.println("INCONCEIVABLE");
     }
 
-    public static int recurseSearch(char[][] array, int rowIndex, int columnIndex)
+    public static long recurseSearch(char[][] array, int rowIndex, int columnIndex, long[][] memoryArray)
     {
 //        System.out.println();
 //        System.out.println(rowIndex + 1 + " " + (columnIndex + 1));
 //        printArray(array);
 
+        if (array[rowIndex][columnIndex] == '*')
+            return 0;
+
+        if (array[rowIndex][columnIndex] == '.')
+        {
+            long sum = 0;
+            // Switch to * is affected if memoryArray[row][column] = 0
+            // Add to sum if memoryArray[row][column] != 0
+
+            if (!blockedLocations.contains(rowIndex - 1 + "_" + columnIndex))
+            {
+                if (memoryArray[rowIndex - 1][columnIndex] == 0)
+                    return 0;
+
+                sum += memoryArray[rowIndex - 1][columnIndex];
+            }
+
+            if (!blockedLocations.contains(rowIndex + "_" + (columnIndex - 1)))
+            {
+                sum += memoryArray[rowIndex][columnIndex - 1];
+            }
+
+            array[rowIndex][columnIndex] = '*';
+
+            if (rowIndex == 0 && columnIndex == 0)
+                sum = 1;
+
+//            System.out.println("Sum: " + sum);
+            memoryArray[rowIndex][columnIndex] = sum;
+        }
+
         if (rowIndex == array.length - 1 && columnIndex == array[0].length - 1)
             return 1;
 
-        int paths = 0;
-
         if (!blockedLocations.contains(rowIndex + 1 + "_" + columnIndex))
-            paths += recurseSearch(array, rowIndex + 1, columnIndex);
+            recurseSearch(array, rowIndex + 1, columnIndex, memoryArray);
         if (!blockedLocations.contains(rowIndex + "_" + (columnIndex + 1)))
-            paths += recurseSearch(array, rowIndex, columnIndex + 1);
+            recurseSearch(array, rowIndex, columnIndex + 1, memoryArray);
 
-        return paths;
+        return memoryArray[memoryArray.length - 1][memoryArray[0].length - 1];
     }
 
     public static boolean recurseSearchWithGodPowers(char[][] array, int rowIndex, int columnIndex)
@@ -123,7 +157,7 @@ public class Robots
 //        System.out.println(rowIndex + 1 + " " + (columnIndex + 1));
 //        printArray(array);
 
-        if (array[rowIndex][columnIndex] == '.')
+        if (array[rowIndex][columnIndex] == '*' || array[rowIndex][columnIndex] == '.')
         {
             array[rowIndex][columnIndex] = '#';
             blockedLocations.add(rowIndex + "_" + columnIndex);

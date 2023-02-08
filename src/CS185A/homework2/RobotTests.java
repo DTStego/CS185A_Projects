@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -38,7 +37,7 @@ public class RobotTests
                 "#......\n" +
                 "###....\n";
 
-        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
 
         Robots.setEnvironment(is);
 
@@ -51,7 +50,7 @@ public class RobotTests
         String testCase = "1\n" +
                 "#\n";
 
-        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
 
         Robots.setEnvironment(is);
 
@@ -68,7 +67,7 @@ public class RobotTests
                 ".....\n" +
                 ".....\n";
 
-        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
 
         Robots.setEnvironment(is);
 
@@ -76,7 +75,7 @@ public class RobotTests
     }
 
     @Test
-    void testCase4() throws IOException
+    void testCase4() throws IOException, InterruptedException
     {
         String testCase = "6\n" +
                 "....#.\n" +
@@ -86,7 +85,7 @@ public class RobotTests
                 "......\n" +
                 "......\n";
 
-        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
 
         Robots.setEnvironment(is);
 
@@ -103,7 +102,7 @@ public class RobotTests
                 "...#.\n" +
                 ".....\n";
 
-        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
 
         Robots.setEnvironment(is);
 
@@ -125,10 +124,88 @@ public class RobotTests
                 "#####.####\n" +
                 "#####.####\n";
 
-        InputStream is = new ByteArrayInputStream(testCase.getBytes(StandardCharsets.UTF_8));
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
 
         Robots.setEnvironment(is);
 
         assertEquals("INCONCEIVABLE", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase7() throws IOException
+    {
+        String testCase = "4\n" +
+                "....\n" +
+                "....\n" +
+                "....\n" +
+                "....\n";
+
+
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("20", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase8() throws IOException
+    {
+        String testCase = "1\n" +
+                ".\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("1", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase9() throws IOException
+    {
+        String testCase = "2\n" +
+                "..\n" +
+                "..";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("2", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase10() throws IOException
+    {
+        String testCase = "3\n" +
+                "...\n" +
+                ".#.\n" +
+                "...\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("2", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase11() throws IOException
+    {
+        String testCase = "6\n" +
+                "......\n" +
+                "#####.\n" +
+                "......\n" +
+                ".#####\n" +
+                ".....#\n" +
+                "......\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("THE GAME IS A LIE", outputStreamCaptor.toString().trim());
     }
 }
