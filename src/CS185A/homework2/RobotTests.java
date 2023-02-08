@@ -208,4 +208,73 @@ public class RobotTests
 
         assertEquals("THE GAME IS A LIE", outputStreamCaptor.toString().trim());
     }
+
+    @Test
+    void testCase12() throws IOException
+    {
+        String testCase = "20\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n" +
+                "....................\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("35345263800", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase13() throws IOException
+    {
+        String testCase = "6\n" +
+                "......\n" +
+                "#####.\n" +
+                "......\n" +
+                ".#####\n" +
+                ".....#\n" +
+                "......\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("THE GAME IS A LIE", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void testCase14() throws IOException
+    {
+        String testCase = "7\n" +
+                ".......\n" +
+                "#....#.\n" +
+                ".#..#..\n" +
+                ".......\n" +
+                ".......\n" +
+                ".......\n" +
+                ".......\n";
+
+        InputStream is = new ByteArrayInputStream(testCase.getBytes());
+
+        Robots.setEnvironment(is);
+
+        assertEquals("171", outputStreamCaptor.toString().trim());
+    }
 }

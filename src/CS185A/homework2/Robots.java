@@ -115,13 +115,40 @@ public class Robots
         if (array[rowIndex][columnIndex] == '.')
         {
             long sum = 0;
+
             // Switch to * is affected if memoryArray[row][column] = 0
             // Add to sum if memoryArray[row][column] != 0
-
             if (!blockedLocations.contains(rowIndex - 1 + "_" + columnIndex))
             {
                 if (memoryArray[rowIndex - 1][columnIndex] == 0)
-                    return 0;
+                {
+                    /*
+                     * 7
+                     * .......
+                     * #....#.
+                     * .#..#..
+                     * .......
+                     * .......
+                     * .......
+                     * .......
+                     *
+                     * The element at array[2][5] interferes with process.
+                     * Check if the elements to its left and up are in blockedElements.
+                     */
+                    if (rowIndex - 2 < 0 || columnIndex - 1 < 0)
+                    {
+                        return 0;
+                    }
+
+                    if (array[rowIndex - 2][columnIndex] == '#' && array[rowIndex - 1][columnIndex - 1] == '#')
+                    {
+
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
 
                 sum += memoryArray[rowIndex - 1][columnIndex];
             }
